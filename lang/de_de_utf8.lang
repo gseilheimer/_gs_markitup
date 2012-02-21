@@ -1,0 +1,45 @@
+﻿# addon:markitup de_de | de_de_utf8
+
+addon_name = MarkItUp
+
+addon_subpage_readme = Lies mich
+
+addon_subpage_readme_txt_01 = MarkItUp - eingebundene Dateien
+addon_subpage_readme_txt_01_01 = Enthält alle wichtigen Komponenten in den aktuellen Versionen:
+addon_subpage_readme_txt_01_02 = - ./sets/ [enthält das SETUP und die ICONS für den EDITOR]
+addon_subpage_readme_txt_01_03 = - ./skins/ [enthält die IMAGES und CSS für den EDITOR]
+addon_subpage_readme_txt_01_04 = - jquery.markitup.js
+addon_subpage_readme_txt_01_05 = - jquery.markitup.pack.js
+addon_subpage_readme_txt_01_06 = Alle Dateien sind in .\files\addons\markitup\
+
+addon_subpage_readme_txt_02 = MarkItUp - Bedienelemente definieren (sets.js)
+addon_subpage_readme_txt_02_01 = mySettings = {
+addon_subpage_readme_txt_02_02 = previewParserPath:	'', // path to your Textile parser
+addon_subpage_readme_txt_02_03 = onShiftEnter:		{keepDefault:false, replaceWith:'\n\n'},
+addon_subpage_readme_txt_02_04 = markupSet: [
+addon_subpage_readme_txt_02_05 = {name:'...', className:'...', key:'1', openWith:'...', placeHolder:'...' }, //Template
+addon_subpage_readme_txt_02_06 = {name:'Heading 1', className:'h1', key:'1', openWith:'\nh1(!(([![Class]!]))!). ', placeHolder:'Ihr Titel hier...'}, //Beispiel
+addon_subpage_readme_txt_02_07 = ]}
+
+addon_subpage_readme_txt_03 = MarkItUp - Grafiken definieren (style.css)
+addon_subpage_readme_txt_03_01 = .markItUp .h1 a {
+addon_subpage_readme_txt_03_02 = background-image:url(images/h1.png);
+addon_subpage_readme_txt_03_03 = }
+
+addon_subpage_readme_txt_04 = Hinweise: Konfiguration anpassen
+addon_subpage_readme_txt_04_01 = Ändern Sie bitte einfach nur die Effekte im Image-Manager, damit Ihnen weitere Systemanpassungen erspart bleiben... 
+addon_subpage_readme_txt_04_02 = Sollten Sie die Konfiguration dennoch ändern wollen, nachfolgend die notwendigen Schritte:
+addon_subpage_readme_txt_04_03 = a) Ändern der "Bildtypen bearbeiten" und der zugehörigen "Effekte bearbeiten"
+addon_subpage_readme_txt_04_04 = b) Alle Anpassungen und Namensänderungen müssen im Modul berücksichtigt werden!
+
+addon_subpage_readme_txt_05 = Hinweise: Löschen des Templates
+addon_subpage_readme_txt_05_01 = Das Löschen des Templates mit der ID=711 sollte nur durch die DEINSTALLATION des AddOns erfolgen, da das Modul für die Texteingabe anderenfalls nicht mehr funktioniert.
+
+addon_subpage_readme_txt_06 = Hinweise: Installation/Einbindung des REX_TEMPLATE[711]
+addon_subpage_readme_txt_06_01 = Das Template ist bereits im zugehörigen Orginalmodul hinterlegt, weshalb keine weitere Konfiguration notwendig ist.
+
+addon_subpage_modul = Module (MarkItUp)
+
+addon_subpage_modul_txt_01 = Eingabe/Ausgabe (MarkItUp-Beispiel)
+addon_subpage_modul_txt_01_01 = Das aktuelle Beispiel-Modul für dieses Addon finden Sie unter der nachfolgenden Adresse:
+addon_subpage_modul_txt_01_02 = http://www.redaxo.org/165-0-moduldetails.html?module_id=463
