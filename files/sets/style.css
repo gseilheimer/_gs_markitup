@@ -41,6 +41,9 @@
 .markItUp .image a {
 	background-image:url(images/image.png);
 }
+.markItUp .video a {
+	background-image:url(images/video.png);
+}
 .markItUp .link-intern a {
 	background-image:url(images/link-intern.png);
 }
