@@ -33,19 +33,19 @@
    }
    
    // Recht um das AddOn zu aendern
-   $REX['ADDON']['perm'][$addon_name]          = 'markitup[1]';
+   #$REX['ADDON']['perm'][$addon_name]          = 'markitup[1]';
    
    // Credits
-   $REX['ADDON']['version'][$addon_name]       = '1.1.12';
+   $REX['ADDON']['version'][$addon_name]       = '1.1.14';
    $REX['ADDON']['author'][$addon_name]       = 'Gilbert Seilheimer';
    $REX['ADDON']['supportpage'][$addon_name]    = 'forum.redaxo.org';
    
    // *************
-   $REX['PERM'][] = 'markitup[1]';
-   $REX['PERM'][] = 'markitup[2]';
+   #$REX['PERM'][] = 'markitup[1]';
+   #$REX['PERM'][] = 'markitup[2]';
    
    // Fuer die Benutzervewaltung
-   $REX['EXTPERM'][] = 'markitup[3]';
+   #$REX['EXTPERM'][] = 'markitup[3]';
 
    //////////////////////////////////////////////////////////////////////////////////
    // SUBPAGES

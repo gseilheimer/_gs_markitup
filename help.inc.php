@@ -21,7 +21,7 @@
 <h3>Benutzung:</h3>
 <p>
 	Das Standard-Textile-Modul wird einfach durch das mit MarkItUp ersetzt...<br />
-	Damit die Werte nicht verloren gehen ist in diesem zugehörigen Modul eventuell noch der REX_VALUE[XY] anzupassen.
+	Damit die Werte nicht verloren gehen ist in diesem zugehoerigen Modul eventuell noch der REX_VALUE[XY] anzupassen.
 </p>
 
 <br />
