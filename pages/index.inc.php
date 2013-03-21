@@ -1,12 +1,18 @@
 <?php
 
- /** 
+/**
  * MARKITUP
  *
- * @author gilbert.seilheimer@contic.de
+ * @author gilbert.seilheimer[at]contic[dot]de Gilbert Seilheimer
+ * @author <a href="http://www.contic.de">www.contic.de</a>
  *
  * @package redaxo4
  * @version svn:$Id$
+ */
+/**
+ * MarkitUp Lib
+ * @link https://github.com/markitup/1.x
+ * @version 1.1.4
  */
 
 // AddOn-MARKITUP
@@ -15,41 +21,78 @@
 	// CONFIG
 	//////////////////////////////////////////////////////////////////////////////////
 
-	// VARs
-	$addon_name = "gs_markitup";
+   // GET PARAMS
+   ////////////////////////////////////////////////////////////////////////////////
+   $page 	   = rex_request('page', 'string');
+   $subpage 	= rex_request('subpage', 'string');
+   #$func    	= rex_request('func', 'string');
+   #$oid     	= rex_request('oid', 'int');
+   
+   //////////////////////////////////////////////////////////////////////////////////
+   // SUBPAGES
+   //////////////////////////////////////////////////////////////////////////////////
+   
+   // REX BACKEND LAYOUT TOP
+   //////////////////////////////////////////////////////////////////////////////
+   
+   require $REX['INCLUDE_PATH'] . '/layout/top.php';
+   
+   echo '<div id="rex-addon-output">';
+   
+   // TITLE & SUBPAGE NAVIGATION
+   //////////////////////////////////////////////////////////////////////////////
+   
+   rex_title("MarkItUp",$REX['ADDON'][$page]['SUBPAGES']);
+   
+   // JS SCRIPT FÜR LINKS IN POPUP
+   ////////////////////////////////////////////////////////////////////////////////
+   
+   #echo "";
+   
+   // INCLUDE REQUESTED SUBPAGE
+   //////////////////////////////////////////////////////////////////////////////
+   
+   if($subpage != "")
+   {
+      switch($subpage)
+      {
+         case 'modul':
+         {
+            break;
+         }
+         case 'readme':
+         {
+            break;
+         }
+         default:
+         {
+            $subpage = "index";
+         }
+      }
+      require $REX["INCLUDE_PATH"]."/addons/$page/pages/$subpage.inc.php";
+   }
+   else
+   {
+      echo '<h2 class="rex-hl2">'.$I18N->msg($page."_subpage_index").'</h2>';
+      
+      echo '<div class="rex-addon-content">';
+         echo '<p class="rex-code">';
+         echo '<code><span style="color: #000000">';
 
-	// Sprachdateien anhaengen
-	if(TRUE == $REX['REDAXO'])
-	{
-		$I18N->appendFile($REX['INCLUDE_PATH'].'/addons/'.$addon_name.'/lang/');
-	}
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	// SUBPAGES
-	//////////////////////////////////////////////////////////////////////////////////
-	
-	require $REX['INCLUDE_PATH'].'/layout/top.php';
+         echo $I18N->msg($page.'_subpage_index_txt_01') . "<br />";
+         echo $I18N->msg($page.'_subpage_index_txt_01_01') . "<br />";
+         echo $I18N->msg($page.'_subpage_index_txt_01_02') . "<br />";
 
-	$page 		= rex_request('page', 'string');
-	$subpage 	= rex_request('subpage', 'string');
-	$func    	= rex_request('func', 'string');
-	$oid     	= rex_request('oid', 'int');
-	
-	rex_title($I18N->msg("addon_name"),$REX['ADDON'][$page]['SUBPAGES']);
-	
-	switch($subpage)
-	{
-	  	case 'modul':
-	  	{
-	    	break;
-		}
-		default:
-		{
-			$subpage = "readme";
-		}
-	}
-	
-	require $REX['INCLUDE_PATH'].'/addons/'.$addon_name.'/pages/'.$subpage.'.inc.php';
-	
-	require $REX['INCLUDE_PATH'].'/layout/bottom.php';
+         echo '</span></code>';
+         echo '</p>';
+      echo '</div>';
+   }
+   
+   // REX BACKEND LAYOUT BOTTOM
+   //////////////////////////////////////////////////////////////////////////////
+   
+   echo '</div>';
+   
+   require $REX['INCLUDE_PATH'] . "/layout/bottom.php";
+
 ?>
