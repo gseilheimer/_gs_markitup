@@ -70,6 +70,7 @@
          {
             $params['subject'] .= "\n  ".'<!-- GS:MARKITUP-START -->';
             $params['subject'] .= "\n  ".'<link rel="stylesheet" type="text/css" href="../files/addons/gs_markitup/skins/style.css" media="screen, projection, print" />';
+            $params['subject'] .= "\n  ".'<link rel="stylesheet" type="text/css" href="../files/addons/gs_markitup/skins/style.container.css" media="screen, projection, print" />';
             $params['subject'] .= "\n  ".'<link rel="stylesheet" type="text/css" href="../files/addons/gs_markitup/sets/style.css" media="screen, projection, print" />';
             $params['subject'] .= "\n  ".'<script type="text/javascript" src="../files/addons/gs_markitup/sets/set.js"></script>';
             $params['subject'] .= "\n  ".'<script type="text/javascript" src="../files/addons/gs_markitup/jquery.markitup.js"></script>';
