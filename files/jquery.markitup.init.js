@@ -19,6 +19,19 @@
          }
          return false;
       });
+
+      // resize markitup editor
+      $('.resize-large').click(function() {
+         $('#markItUp').animate( { height:'750px' } );
+         return false;
+      });
+
+      $('.resize-small').click(function() {
+         $('#markItUp').animate( { height:'320px' } );
+         return false;
+      });
+
+
       // Add functionality for markItUp!DIV
       $(".toggle_container").hide();
       $("h2.trigger:first").addClass("active");
