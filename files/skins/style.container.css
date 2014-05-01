@@ -40,8 +40,8 @@ h2.active {
    /*background: ;*/
 }
 .toggle_container .block p {
-   padding: 5px 0;
-   margin: 5px 0;
+   padding: 0px;
+   margin: 0px;
 }
 .toggle_container h3 {
    font: 1.5em normal Georgia, "Times New Roman", Times, serif;

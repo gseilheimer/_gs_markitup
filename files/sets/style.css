@@ -206,6 +206,10 @@
    background-image: url(images/link-mailto.png);
 }
 
+.markItUp .link-tel a {
+   background-image: url(images/link-tel.png);
+}
+
 .markItUp .content-features a {
    background-image: url(images/content-features.png);
 }
@@ -252,4 +256,8 @@
 
 .markItUp .resize-large a {
    background-image: url(images/arrow_out.png);
+}
+
+.markItUp .clean a {
+   background-image: url(images/clean.png);
 }

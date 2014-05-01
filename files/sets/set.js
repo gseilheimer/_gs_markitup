@@ -11,6 +11,14 @@
 // Feel free to add more tags
 // -------------------------------------------------------------------
 
+function insertFileLink(file) {
+  jQuery.markItUp({ openWith: '"', closeWith: '":'+file, placeHolder: file });
+}
+
+function insertLink(url, desc) {
+  jQuery.markItUp({ openWith: '"', closeWith: '":'+url, placeHolder: desc });
+}
+
 function insertImage(src, desc) {
    img = src.replace(/files\//, "");
    //jQuery.markItUp({ replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"});
@@ -19,7 +27,7 @@ function insertImage(src, desc) {
 }
 
 function insertLink(url, desc) {
-   jQuery.markItUp({openWith: '"[![FancyBoxStyle_INLINE:!:(fancyboxStyleInlineDefault fancybox.iframe)]!]' + desc, closeWith: '":' + url});
+   jQuery.markItUp({ openWith: '"[![FancyBoxStyle_INLINE:!:(fancyboxStyleInlineDefault fancybox.iframe)]!]'+desc, closeWith: '":'+url });
 }
 
 function markitup_getURLParam(strParamName) {
@@ -56,25 +64,80 @@ mySettings = {
       {name: 'Stroke through', key: 'S', className: 'stroke', closeWith: '-', openWith: '-'},
       {name: 'Insertion', className: 'insert', closeWith: '+', openWith: '+'},
       {separator: '---------------'},
-      {name: 'Bulleted list', className: 'list-bullet', openWith: '(!(* |!|*)!)'},
-      {name: 'Numeric list', className: 'list-numeric', openWith: '(!(# |!|#)!)'},
+	  {name: 'Bulleted list', className: 'list-bullet', 
+		 replaceWith:function(h) {
+			var selection = h.selection;
+			
+			var lines = selection.split(/\r?\n/);
+			var r = "";
+			var start = "* ";
+			for (var i=0; i < lines.length; i++) {
+				line = lines[i];
+				
+				if (line.substr(0,1) == "*" || line.substr(0,1) == "#")
+				{
+					start = "*";
+					
+					if (i != lines.length - 1)
+					{
+						line = line + "\n";
+					}
+				}
+				else
+				{
+					line = line + "\n";
+				}
+
+				r = r + start + line;
+			}
+			return r;
+		 }
+	  },
+	  {name: 'Numeric list', className: 'list-numeric', 
+	     replaceWith:function(h) {
+			 var selection = h.selection;
+
+			 var lines = selection.split(/\r?\n/);
+			 var r = "";
+			 var start = "# ";
+			 for (var i=0; i < lines.length; i++) {
+				line = lines[i];
+				
+				if (line.substr(0,1) == "*" || line.substr(0,1) == "#")
+				{
+					start = "*";
+					
+					if (i != lines.length - 1)
+					{
+						line = line + "\n";
+					}
+				}
+				else
+				{
+					line = line + "\n";
+				}
+
+				r = r + start + line;
+			 }
+			 return r;
+		 }
+	  },
       {separator: '---------------'},
       {name: 'Superscript', className: 'superscript', closeWith: '^', openWith: '^'},
       {name: 'Subscript', className: 'subscript', closeWith: '~', openWith: '~'},
       {separator: '---------------'},
-      {name: 'Citation', className: 'citation', closeWith: '??', openWith: '??'},
-      {name: 'Quotes', className: 'quote', openWith: '@', closeWith: '@', dropMenu: [
+      {name: 'Citation (inline)', className: 'citation', closeWith: '??', openWith: '??', dropMenu: [
          {name: 'Quotes Block', className: 'quotes', openWith: 'bq(!(([![Class]!]))!). '}
       ]},
-      {name: 'Code', className: 'code', openWith: '@', closeWith: '@', dropMenu: [
+      {name: 'Code (inline)', className: 'code', openWith: '@', closeWith: '@', dropMenu: [
          {name: 'Code Block', className: 'code_block', openWith: 'bc(!(([![Class]!]))!). '}
       ]},
       {separator: '---------------'},
       {name: 'Align', className: 'align', dropMenu: [
-         {name: 'align left', className: 'align-left', openWith: 'p<.(!(([![Class]!]))!). '},
-         {name: 'align right', className: 'align-right', openWith: 'p>.(!(([![Class]!]))!). '},
-         {name: 'align center', className: 'align-centered', openWith: 'p=.(!(([![Class]!]))!). '},
-         {name: 'align  justified', className: 'align-justified', openWith: 'p<>.(!(([![Class]!]))!). '}
+         {name: 'align left', className: 'align-left', openWith: 'p<(!(([![Class]!]))!). '},
+         {name: 'align right', className: 'align-right', openWith: 'p>(!(([![Class]!]))!). '},
+         {name: 'align center', className: 'align-centered', openWith: 'p=(!(([![Class]!]))!). '},
+         {name: 'align justified', className: 'align-justified', openWith: 'p<>(!(([![Class]!]))!). '}
       ]},
       {separator: '---------------' },
       {name: 'Colors', className: "colors", dropMenu: [
@@ -120,11 +183,6 @@ mySettings = {
       ]},
       {separator: '---------------'},
       {name: 'Links', className: 'link', dropMenu: [
-         {name: 'Link intern Pop-Up', className: 'link-intern',
-            beforeInsert: function (h) {
-               openLinkMap('TINY', '&clang=' + markitup_getURLParam('clang') + '&category_id=' + markitup_getURLParam('article_id'));
-            }
-         },
          {name: 'Link intern', className: 'link-intern',
             beforeInsert: function (h) {
                openLinkMap('TINY', '&clang=' + markitup_getURLParam('clang') + '&category_id=' + markitup_getURLParam('article_id'));
@@ -136,7 +194,8 @@ mySettings = {
             }
          },
          {name: 'Link extern', className: 'link-extern', openWith: '"', closeWith: '([![Title]!])":[![Link:!:http://]!]', placeHolder: 'Ihr Text zum LINK hier...'},
-         {name: 'Link mail-to', className: 'link-mailto', openWith: '"', closeWith: '([![Title]!])":[![Link:!:mailto:]!]', placeHolder: 'Ihre E-Mailadresse hier...'}
+         {name: 'Link mail-to', className: 'link-mailto', openWith: '"', closeWith: '([![Title]!])":[![Mail:!:mailto:]!]', placeHolder: 'Ihre E-Mailadresse hier...'},
+		 {name: 'Link phone', className: 'link-phone', openWith: '"', closeWith: '([![Title]!])":[![Fon:!:tel:]!]', placeHolder: 'Ihre Telefonnummer hier...'}
       ]},
       {separator: '---------------'},
       {name: 'Content Features', className: 'content-features', dropMenu: [
@@ -145,25 +204,28 @@ mySettings = {
          {name: 'Accordion Content', className: 'accordion-content', openWith: '\nnotextile. <div id="accordion" class="content">\n\n', closeWith: '\nnotextile. </div>\n\n', placeHolder: 'Ihr Inhalt im TAB...\n'}
       ]},
       {separator: '---------------'},
-      {name: 'Editor (size)', className: 'resize', dropMenu: [
-         {name: 'Editor (smaller)', className: 'resize-small' },
-         {name: 'Editor (larger)', className: 'resize-large' }
-      ]},
-      {separator: '---------------'},
-      {name: 'Table', className: 'table', placeHolder: "Inhalt der Zelle...",
+      {name: 'Table', className: 'table', placeHolder: "Zelleninhalt...",
          replaceWith: function (h) {
             cols = prompt("Wie viele Spalten?");
             rows = prompt("Wie viele Reihen?");
-            html = "";
-            for (r = 0; r < rows; r++) {
-               for (c = 0; c < cols; c++) {
-                  html += "| " + (h.placeHolder + " " || "");
+            html = "\n";
+            for (r = 0; r <= rows; r++) {
+               for (c = 0; c <= cols; c++) {
+			      if (r == 0)
+				  {
+					 insert = prompt("Überschrift : Spalte " + c + " - Zeile " + r);
+				     html += "|_. " + insert + " ";
+				  }
+				  if (r > 1)
+				  {
+				     html += "| " + (h.placeHolder + " " || "");
+				  }
+				  
                }
                html += "|\n";
             }
             return html;
          }, dropMenu: [
-
          {name: 'Table (thead)', className: 'table-th', placeHolder: "Titel...",
             replaceWith: function (h) {
                cols = prompt("Wie viele Spalten?");
@@ -182,7 +244,7 @@ mySettings = {
                return html;
             }
          },
-         {name: 'Table (tr/td)', className: 'table-td', placeHolder: "Inhalt der Zelle...",
+         {name: 'Table (tr/td)', className: 'table-td', placeHolder: "Zelleninhalt...",
             replaceWith: function (h) {
                cols = prompt("Wie viele Spalten?");
                rows = prompt("Wie viele Reihen?");
@@ -212,6 +274,48 @@ mySettings = {
                return html;
             }
          }
-      ]}
+        ]},
+		{separator: '---------------'},
+		{name: 'Markup clean', className: 'clean', 
+			replaceWith:function(h)
+			{
+				var clean = h.selection;
+				// link intern / extern / mailto / linkfiles
+				clean = clean.replace(/"(.*?)":(https?|redaxo|mailto|files)(:|\/)(\/\/)?.+?\s/g, '$1 ');
+				// files
+				clean = clean.replace(/!files\/.*?!/g, '');
+				// p
+				clean = clean.replace(/p.*?\.\s(.*?)/g, '$1');
+				// h(1-9)
+				clean = clean.replace(/h\d+.*?\.\s(.*?)/g, '$1');
+				// strong
+				clean = clean.replace(/\s\*(.*?)\*\s/g, ' $1 ');
+				// italic
+				clean = clean.replace(/\s\_(.*?)\_\s/g, ' $1 ');
+				// stroke
+				clean = clean.replace(/\s\-(.*?)\-\s/g, ' $1 ');
+				// underline
+				clean = clean.replace(/\s\+(.*?)\+\s/g, ' $1 ');
+				// superscript
+				clean = clean.replace(/\s\^(.*?)\^\s/g, ' $1 ');
+				// subscript
+				clean = clean.replace(/\s\~(.*?)\~\s/g, ' $1 ');
+				// code
+				clean = clean.replace(/\s\@(.*?)\@\s/g, ' $1 ');
+				// blockquote
+				clean = clean.replace(/bq.*?\.\s(.*?)/g, '$1');
+				// ul
+				clean = clean.replace(/\*\s(.*?)/g, '$1');
+				// ol
+				clean = clean.replace(/\#\s(.*?)/g, '$1');
+
+				return clean;
+			}
+		},
+		{separator: '---------------'},
+		{name: 'Editor (size)', className: 'resize', dropMenu: [
+			{name: 'Editor (smaller)', className: 'resize-small' },
+			{name: 'Editor (larger)', className: 'resize-large' }
+		]}
    ]
 }
