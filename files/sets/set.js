@@ -67,13 +67,11 @@ mySettings = {
 	  {name: 'Bulleted list', className: 'list-bullet', 
 		 replaceWith:function(h) {
 			var selection = h.selection;
-			
 			var lines = selection.split(/\r?\n/);
 			var r = "";
 			var start = "* ";
 			for (var i=0; i < lines.length; i++) {
 				line = lines[i];
-				
 				if (line.substr(0,1) == "*" || line.substr(0,1) == "#")
 				{
 					start = "*";
@@ -87,26 +85,46 @@ mySettings = {
 				{
 					line = line + "\n";
 				}
-
+				r = r + start + line;
+			}
+			return r;
+		 }, dropMenu: [
+	  {name: 'Bulleted lists', className: 'list-bullet', 
+		 replaceWith:function(h) {
+			var selection = h.selection;
+			var lines = selection.split(/\r?\n/);
+			var r = "";
+			var start = "** ";
+			for (var i=0; i < lines.length; i++) {
+				line = lines[i];
+				if (line.substr(0,1) == "**" || line.substr(0,1) == "##")
+				{
+					start = "**";
+					if (i != lines.length - 1)
+					{
+						line = line + "\n";
+					}
+				}
+				else
+				{
+					line = line + "\n";
+				}
 				r = r + start + line;
 			}
 			return r;
 		 }
-	  },
+	  }]},
 	  {name: 'Numeric list', className: 'list-numeric', 
 	     replaceWith:function(h) {
 			 var selection = h.selection;
-
 			 var lines = selection.split(/\r?\n/);
 			 var r = "";
 			 var start = "# ";
 			 for (var i=0; i < lines.length; i++) {
 				line = lines[i];
-				
 				if (line.substr(0,1) == "*" || line.substr(0,1) == "#")
 				{
 					start = "*";
-					
 					if (i != lines.length - 1)
 					{
 						line = line + "\n";
@@ -116,12 +134,35 @@ mySettings = {
 				{
 					line = line + "\n";
 				}
-
+				r = r + start + line;
+			 }
+			 return r;
+		 }, dropMenu: [
+	  {name: 'Numeric lists', className: 'list-numeric', 
+	     replaceWith:function(h) {
+			 var selection = h.selection;
+			 var lines = selection.split(/\r?\n/);
+			 var r = "";
+			 var start = "## ";
+			 for (var i=0; i < lines.length; i++) {
+				line = lines[i];
+				if (line.substr(0,1) == "**" || line.substr(0,1) == "##")
+				{
+					start = "*";
+					if (i != lines.length - 1)
+					{
+						line = line + "\n";
+					}
+				}
+				else
+				{
+					line = line + "\n";
+				}
 				r = r + start + line;
 			 }
 			 return r;
 		 }
-	  },
+	  }]},
       {separator: '---------------'},
       {name: 'Superscript', className: 'superscript', closeWith: '^', openWith: '^'},
       {name: 'Subscript', className: 'subscript', closeWith: '~', openWith: '~'},

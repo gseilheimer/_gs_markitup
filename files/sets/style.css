@@ -111,7 +111,7 @@
 }
 
 .markItUp  .colors ul {
-   width: 81px;
+   width: 81px !important;
    padding: 1px;
 }
 

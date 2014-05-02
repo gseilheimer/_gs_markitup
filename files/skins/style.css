@@ -23,7 +23,7 @@
 }
 .markItUpContainer ul {
 	margin-left: 0px !important;
-	width: 615px !important;
+	width: 625px !important;
 }
 .markItUpEditor {
 	font: 12px 'Courier New', Courier, monospace;
@@ -82,6 +82,10 @@
 .markItUpHeader ul .markItUpDropMenu li {
 	margin-right: 0px;
 }
+.markItUpHeader ul .markItUpDropMenu ul {
+	width: auto !important;
+	min-width: 81px;
+}
 .markItUpHeader ul .markItUpSeparator {
 	margin: 0px;
 	/*width: 1px;*/
@@ -110,6 +114,7 @@
 }
 .markItUpHeader ul ul .markItUpDropMenu {
 	background: #F5F5F5 url(./images/submenu.png) no-repeat 100% 50%;
+	width: 81px;
 }
 /* next rows of buttons */
 .markItUpHeader ul ul ul {
