@@ -23,7 +23,9 @@ function insertImage(src, desc) {
    img = src.replace(/files\//, "");
    //jQuery.markItUp({ replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"});
    //jQuery.markItUp({ replaceWith: '![![FancyBoxStyle:!:(fancyboxStyleInlineSpecial fancybox.iframe)]!]{float: [![Align:!:left|right]!]; padding: 0.5em 1em;}index.php?rex_img_type=fancybox_resize_[![Size:!:150|250|350|600]!]&rex_img_file=' + img + '(' + desc + ')!'});
-   jQuery.markItUp({ replaceWith: '!{float: [![Align:!:left|right]!]; padding: 0.5em 1em;}index.php?rex_img_type=fancybox_resize_[![Size:!:150|250|350|600]!]&rex_img_file=' + img + '(' + desc + ')!'});
+   jQuery.markItUp({ 
+      replaceWith: '!{float: [![Select Align:\nleft|right:!:left]!]; padding: 0.5em 1em;}index.php?rex_img_type=fancybox_resize_[![Select Size:\n100|150|200|250|300|450|600|800|950:!:250]!]&rex_img_file=' + img + '(' + desc + ')!'
+   });
 }
 
 function insertLink(url, desc) {
@@ -356,7 +358,9 @@ mySettings = {
 		{separator: '---------------'},
 		{name: 'Editor (size)', className: 'resize', dropMenu: [
 			{name: 'Editor (smaller)', className: 'resize-small' },
-			{name: 'Editor (larger)', className: 'resize-large' }
+			{name: 'Editor (larger)', className: 'resize-large' },
+			{name: 'Editor (fullscreen)', className: 'resize-fullscreen' },
+			{name: 'Editor (default)', className: 'resize-to-default' }
 		]}
    ]
 }
