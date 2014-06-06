@@ -87,11 +87,11 @@
 	min-width: 81px;
 }
 .markItUpHeader ul .markItUpSeparator {
-	margin: 0px;
-	/*width: 1px;*/
-	height: 1px;
-	/*overflow: hidden;*/
-	/*background-color: #CCC;*/
+	margin: 0 10px;
+	width: 1px;
+	height: 16px;
+	overflow: hidden;
+	background-color: #CCC;
 }
 .markItUpHeader ul ul .markItUpSeparator {
 	width: auto;

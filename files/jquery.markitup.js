@@ -45,6 +45,7 @@
 					previewParser:			false,
 					previewParserPath:		'',
 					previewParserVar:		'data',
+					previewParserAjaxType:	'POST',
 					resizeHandle:			true,
 					beforeInsert:			'',
 					afterInsert:			'',
@@ -202,7 +203,7 @@
 				$('li:hover > ul', ul).css('display', 'block');
 				$.each(markupSet, function() {
 					var button = this, t = '', title, li, j;
-					title = (button.key) ? (button.name||'')+' [Ctrl+'+button.key+']' : (button.name||'');
+					button.title ? title = (button.key) ? (button.title||'')+' [Ctrl+'+button.key+']' : (button.title||'') : title = (button.key) ? (button.name||'')+' [Ctrl+'+button.key+']' : (button.name||'');
 					key   = (button.key) ? 'accesskey="'+button.key+'"' : '';
 					if (button.separator) {
 						li = $('<li class="markItUpSeparator">'+(button.separator||'')+'</li>').appendTo(ul);
@@ -211,16 +212,16 @@
 						for (j = levels.length -1; j >= 0; j--) {
 							t += levels[j]+"-";
 						}
-						li = $('<li class="markItUpButton markItUpButton'+t+(i)+' '+(button.className||'')+'"><a href="" '+key+' title="'+title+'">'+(button.name||'')+'</a></li>')
+						li = $('<li class="markItUpButton markItUpButton'+t+(i)+' '+(button.className||'')+'"><a href="#" '+key+' title="'+title+'">'+(button.name||'')+'</a></li>')
 						.bind("contextmenu.markItUp", function() { // prevent contextmenu on mac and allow ctrl+click
 							return false;
 						}).bind('click.markItUp', function(e) {
 							e.preventDefault();
 						}).bind("focusin.markItUp", function(){
                             $$.focus();
-						}).bind('mouseup', function() {
+						}).bind('mouseup', function(e) {
 							if (button.call) {
-								eval(button.call)();
+								eval(button.call)(e); // Pass the mouseup event to custom delegate
 							}
 							setTimeout(function() { markup(button) },1);
 							return false;
@@ -544,7 +545,7 @@
 					writeInPreview(localize(data, 1) ); 
 				} else if (options.previewParserPath !== '') {
 					$.ajax({
-						type: 'POST',
+						type: options.previewParserAjaxType,
 						dataType: 'text',
 						global: false,
 						url: options.previewParserPath,
@@ -636,6 +637,12 @@
 			function remove() {
 				$$.unbind(".markItUp").removeClass('markItUpEditor');
 				$$.parent('div').parent('div.markItUp').parent('div').replaceWith($$);
+
+				var relativeRef = $$.parent('div').parent('div.markItUp').parent('div');
+				if (relativeRef.length) {
+				    relativeRef.replaceWith($$);
+				}
+				
 				$$.data('markItUp', null);
 			}
 
